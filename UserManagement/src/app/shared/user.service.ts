@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import{HttpClient} from '@angular/common/http'; 
+import{HttpClient, HttpHeaders} from '@angular/common/http'; 
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +18,6 @@ export class UserService {
     ConfirmPassword:['',Validators.required]
     
   });
-
-  // comparepasswords(fb:FormGroup){
-  //   let confirmpwdctrl=fb.get('ConfirmPassword');
-  //   if(confirmpwdctrl.errors==null || 'passwordMismatch' in confirmpwdctrl.errors){
-  //     if(fb.get('Password').value!=confirmpwdctrl.value)
-  //     confirmpwdctrl.setErrors({passwordMismatch:true});
-  //     else
-  //     confirmpwdctrl.setErrors(null);
-  //   }
-  // }
-
   register(){
     var body={
       UserName:this.formModel.value.UserName,
@@ -38,5 +27,14 @@ export class UserService {
     };
     return this.http.post(this.BaseURI+ '/auth/register',body);
   }
+  login(formData){
+    return this.http.post(this.BaseURI+'/auth/token',formData);
+  }
+  getUserProfile(){
+    var tokenHeader= new HttpHeaders({'Authorization':'Bearer'+localStorage.getItem('token')});
+    return this.http.get(this.BaseURI+'/userDetails',{headers:tokenHeader});
+
+  }
+
 
 }

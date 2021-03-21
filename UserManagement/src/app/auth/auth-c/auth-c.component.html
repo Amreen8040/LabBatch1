@@ -1,5 +1,15 @@
-<div class="container">
-    <div class="col-md-8 offset-md-2">
-        <app-register></app-register>
+<div class="wrapper">
+    <div class="wrapped-div">
+        <div class="tab-header">
+            <h2 routerLink='./login' routerLinkActive="active">SignIn</h2>
+            <h2 routerLink='./register' routerLinkActive="active">SignUp</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <router-outlet></router-outlet>
+                <!-- <app-register></app-register>
+                <app-login></app-login> -->
+            </div>
+        </div>
     </div>
 </div>
