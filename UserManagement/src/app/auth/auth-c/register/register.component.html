@@ -5,19 +5,19 @@
         <form [formGroup]="service.formModel"  autocomplete="off" (submit)="onSubmit()">
             <div class="form-group" required>
                 <label>UserName</label>
-                <input type="text" class="form-control" formControlName="UserName">
-                <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">This Field is Mandatory!</label>
+                <input type="text" class="form-control" formControlName="userName">
+                <label class="text-danger" *ngIf="service.formModel.get('userName').touched && service.formModel.get('userName').errors?.required">This Field is Mandatory!</label>
             </div>
             <div class="form-group" required>
                 <label>Email</label>
-                <input type="text" class="form-control" formControlName="Email">
-                <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid Email!</label>
+                <input type="text" class="form-control" formControlName="email">
+                <label class="text-danger" *ngIf="service.formModel.get('email').touched && service.formModel.get('email').errors?.email">Invalid Email!</label>
             </div>
             
                 <div class="form-group" required>
                     <label>Password</label>
-                    <input type="password" class="form-control" formControlName="Password">
-                    <label class="text-danger" *ngIf="service.formModel.get('Password').touched && service.formModel.get('Password').errors?.required">This Field is Mandatory!</label>
+                    <input type="password" class="form-control" formControlName="password">
+                    <label class="text-danger" *ngIf="service.formModel.get('password').touched && service.formModel.get('password').errors?.required">This Field is Mandatory!</label>
                 </div>
                 <div class="form-group" required>
                     <label>ConfirmPassword</label>

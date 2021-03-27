@@ -10,22 +10,22 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class LoginComponent implements OnInit {
    formModel={
-     UserName:'',
-     Email:'',
-     Password:''
+     userName:'',
+     email:'',
+     password:''
    }
   constructor(private service:UserService,private router:Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')!=null)
-       this.router.navigateByUrl('home');
+    
   }
 
-  onSubmit(form:NgForm){
-    this.service.login(form.value).subscribe(
-      (res:any)=>{
-        localStorage.setItem('token',res.token);
-        this.router.navigateByUrl('home');
+  onSubmit(){
+    console.log(this.formModel);
+    this.service.login(this.formModel).subscribe(
+      (data:any)=>{console.log(data)
+        localStorage.setItem('token',data.token);
+        this.router.navigate(['/home']);
       },
       
     )

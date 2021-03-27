@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import{HttpClient, HttpHeaders} from '@angular/common/http'; 
+import { user } from '../adduser/adduser.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +13,42 @@ export class UserService {
   readonly BaseURI="https://localhost:44316/api";
 
   formModel=this.fb.group({
-    UserName:['',Validators.required],
-    Email:['',Validators.email],
-    Password:['',Validators.required],
+    userName:['',Validators.required],
+    email:['',Validators.email],
+    password:['',Validators.required],
     ConfirmPassword:['',Validators.required]
     
   });
   register(){
     var body={
-      UserName:this.formModel.value.UserName,
-      Email:this.formModel.value.Email,
-      Password:this.formModel.value.Password,
+      userName:this.formModel.value.userName,
+      email:this.formModel.value.email,
+      password:this.formModel.value.password,
       ConfirmPassword:this.formModel.value.ConfirmPassword,
     };
-    return this.http.post(this.BaseURI+ '/auth/register',body);
+    return this.http.post(`https://localhost:44316/api/auth/register`,body);
   }
   login(formData){
-    return this.http.post(this.BaseURI+'/auth/token',formData);
+    console.log(`${this.BaseURI}/auth/token`);
+    return this.http.post(`https://localhost:44316/api/auth/token`,formData);
   }
-  getUserProfile(){
-    var tokenHeader= new HttpHeaders({'Authorization':'Bearer'+localStorage.getItem('token')});
-    return this.http.get(this.BaseURI+'/userDetails',{headers:tokenHeader});
-
+  getToken(){
+    return localStorage.getItem("token");
+  }
+  loggedIn(){
+    return !!localStorage.getItem("token");
+  }
+  authLogin(){
+    return this.http.get('https://localhost:44316/api/user/get');
+  }
+  postData(val:user){
+    return this.http.post('https://localhost:44316/api/user/insertWithRole',val);
+  }
+  deleteData(id:any){
+    return this.http.delete(`https://localhost:44316/api/user/delete/${id}`)
+  }
+  getDataById(id:any){
+    return this.http.get(`https://localhost:44316/api/user/get/${id}`);
   }
 
 
